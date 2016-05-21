@@ -1,15 +1,11 @@
 package com.openweathermap.tests.current;
 
 import org.junit.Test;
-
-import java.util.Arrays;
 import java.util.HashMap;
-
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
 import static com.jayway.restassured.http.ContentType.XML;
 import static org.hamcrest.CoreMatchers.equalTo;
-
 import static com.openweathermap.Common.*;
 
 public class ByCityName {
@@ -71,6 +67,7 @@ public class ByCityName {
                 assertThat().statusCode(404);
     }
 
+    //This test fails sometimes. The system associate random string with some city even if city name has numbers. Magic.
     @Test
     public void checkBodyMessageWhenCityNameIncorrect(){
         given().
@@ -84,7 +81,7 @@ public class ByCityName {
     }
 
     @Test
-    public void checkCityCountryCode(){
+    public void checkCityIdInPayload(){
         HashMap<String, String> cityWithCode = getRandomCityNameWithCode();
         String cityName = getCityNameFromMap(cityWithCode);
         Integer cityCode = getCityCodeFromMap(cityWithCode);
@@ -97,5 +94,21 @@ public class ByCityName {
                 log().ifValidationFails().
                 assertThat().body("name", equalTo(cityName)).and().
                 body("id", equalTo(cityCode));
+    }
+
+    @Test
+    public void checkCountryCodeInPayload(){
+        String city = "London";                 //Need to isolate data
+        Integer cityCode = 2643743;
+
+        given().
+                param("q", city+",uk").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("name", equalTo(city)).and().
+                body("id", equalTo(cityCode));
+
     }
 }

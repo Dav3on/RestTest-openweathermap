@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class Common {
+
     public static final String BASE_API_URL = "http://api.openweathermap.org/data/2.5";
     public static final String API_KEY = "6f95c082f65aa559778111e7f0894efc";
 
@@ -18,8 +19,6 @@ public class Common {
         Object[] keys = CITY_NAME_WITH_ID.keySet().toArray();
         return keys[new Random().nextInt(keys.length)].toString();
     }
-
-
 
     public static HashMap<String, String> getRandomCityNameWithCode(){
         Object[] keys = CITY_NAME_WITH_ID.keySet().toArray();
@@ -46,6 +45,6 @@ public class Common {
 
     public static String randomString()
     {
-        return RandomStringUtils.random(10);
+        return RandomStringUtils.randomAlphanumeric(10);
     }
 }
