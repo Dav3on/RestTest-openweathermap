@@ -1,5 +1,6 @@
 package com.openweathermap.tests.current;
 
+import org.junit.Before;
 import org.junit.Test;
 import java.util.HashMap;
 import static com.jayway.restassured.RestAssured.given;
@@ -9,11 +10,23 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static com.openweathermap.Common.*;
 
 public class ByCityName {
+    String cityName;
+    String countyCode;
+    Integer cityCode;
+
+    @Before
+    public void setUp()
+    {
+        HashMap<String, Object> city = getRandomCity();
+        cityName = getCityNameFromMap(city);
+        countyCode = getCountryCodeFromMap(city);
+        cityCode = getCityCodeFromMap(city);
+    }
 
     @Test
     public void status200WhenKeyCorrect(){
         given().
-                param("q", getRandomCityName()).
+                param("q", cityName).
         when().
                 get(CURRENT_WEATHER_URL).
         then().
@@ -24,7 +37,7 @@ public class ByCityName {
     @Test
     public void defaultResponseContentTypeIsJSON(){
         given().
-                param("q", getRandomCityName()).
+                param("q", cityName).
         when().
                 get(CURRENT_WEATHER_URL).
         then().
@@ -35,7 +48,7 @@ public class ByCityName {
     @Test
     public void responseContentTypeIsJSON(){
         given().
-                param("q", getRandomCityName()).
+                param("q", cityName).
                 param("mode", "json").
         when().
                 get(CURRENT_WEATHER_URL).
@@ -47,7 +60,7 @@ public class ByCityName {
     @Test
     public void responseContentTypeIsXML(){
         given().
-                param("q", getRandomCityName()).
+                param("q", cityName).
                 param("mode", "xml").
         when().
                 get(CURRENT_WEATHER_URL).
@@ -82,12 +95,8 @@ public class ByCityName {
 
     @Test
     public void checkCityIdInPayload(){
-        HashMap<String, String> cityWithCode = getRandomCityNameWithCode();
-        String cityName = getCityNameFromMap(cityWithCode);
-        Integer cityCode = getCityCodeFromMap(cityWithCode);
-
         given().
-                param("q", cityWithCode.keySet()).
+                param("q", cityName).
         when().
                 get(CURRENT_WEATHER_URL).
         then().
@@ -98,17 +107,13 @@ public class ByCityName {
 
     @Test
     public void checkCountryCodeInPayload(){
-        String city = "London";                 //Need to isolate data
-        Integer cityCode = 2643743;
-
         given().
-                param("q", city+",uk").
+                param("q", cityName+","+countyCode).
         when().
                 get(CURRENT_WEATHER_URL).
         then().
                 log().ifValidationFails().
-                assertThat().body("name", equalTo(city)).and().
+                assertThat().body("name", equalTo(cityName)).and().
                 body("id", equalTo(cityCode));
-
     }
 }
