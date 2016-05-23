@@ -1,18 +1,22 @@
 package com.openweathermap.tests.current;
 
+import com.jayway.restassured.http.ContentType;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.HashMap;
+import java.util.Map;
+
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
-import static com.jayway.restassured.http.ContentType.XML;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static com.openweathermap.Common.*;
 
 public class ByCityName {
-    String cityName;
-    String countyCode;
-    Integer cityCode;
+    private String cityName;
+    private String countyCode;
+    private Integer cityId;
 
     @Before
     public void setUp()
@@ -20,18 +24,25 @@ public class ByCityName {
         HashMap<String, Object> city = getRandomCity();
         cityName = getCityNameFromMap(city);
         countyCode = getCountryCodeFromMap(city);
-        cityCode = getCityCodeFromMap(city);
+        cityId = getCityIdFromMap(city);
+    }
+
+    @After
+    public void tearDown() {
+        cityName = null;
+        countyCode = null;
+        cityId = null;
     }
 
     @Test
-    public void status200WhenKeyCorrect(){
+    public void status200WhenCityNameCorrect(){
         given().
                 param("q", cityName).
         when().
                 get(CURRENT_WEATHER_URL).
         then().
-                log().ifError().
-                statusCode(200);
+                log().ifValidationFails().
+                assertThat().statusCode(200);
     }
 
     @Test
@@ -41,32 +52,22 @@ public class ByCityName {
         when().
                 get(CURRENT_WEATHER_URL).
         then().
-                log().ifError().
-                contentType(JSON);
+                log().ifValidationFails().
+                assertThat().contentType(JSON);
     }
 
     @Test
-    public void responseContentTypeIsJSON(){
-        given().
-                param("q", cityName).
-                param("mode", "json").
-        when().
-                get(CURRENT_WEATHER_URL).
-        then().
-                log().ifError().
-                contentType(JSON);
-    }
-
-    @Test
-    public void responseContentTypeIsXML(){
-        given().
-                param("q", cityName).
-                param("mode", "xml").
-        when().
-                get(CURRENT_WEATHER_URL).
-        then().
-                log().ifError().
-                contentType(XML);
+    public void checkContentTypes(){
+        for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
+            given().
+                    param("q", cityName).
+                    param("mode", entry.getKey()).
+            when().
+                    get(CURRENT_WEATHER_URL).
+            then().
+                    log().ifValidationFails().
+                    assertThat().contentType(entry.getValue());
+        }
     }
 
     @Test
@@ -94,26 +95,54 @@ public class ByCityName {
     }
 
     @Test
-    public void checkCityIdInPayload(){
+    public void checkCityIdInJSONPayload(){
         given().
                 param("q", cityName).
+                param("mode", "json").
         when().
                 get(CURRENT_WEATHER_URL).
         then().
                 log().ifValidationFails().
                 assertThat().body("name", equalTo(cityName)).and().
-                body("id", equalTo(cityCode));
+                body("id", equalTo(cityId));
     }
 
     @Test
-    public void checkCountryCodeInPayload(){
+    public void checkCountryCodeInJSONPayload(){
         given().
                 param("q", cityName+","+countyCode).
+                param("mode", "json").
         when().
                 get(CURRENT_WEATHER_URL).
         then().
                 log().ifValidationFails().
                 assertThat().body("name", equalTo(cityName)).and().
-                body("id", equalTo(cityCode));
+                body("id", equalTo(cityId));
+    }
+
+    @Test
+    public void checkCityIdInXMLPayload(){
+        given().
+                param("q", cityName).
+                param("mode", "xml").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("current.city.@name", equalTo(cityName)).and().
+                body("current.city.@id", equalTo(cityId.toString()));
+    }
+
+    @Test
+    public void checkCountryCodeInXMLPayload(){
+        given().
+                param("q", cityName+","+countyCode).
+                param("mode", "xml").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("current.city.@name", equalTo(cityName)).and().
+                body("current.city.@id", equalTo(cityId.toString()));
     }
 }

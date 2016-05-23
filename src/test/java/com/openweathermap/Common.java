@@ -1,7 +1,11 @@
 package com.openweathermap;
 
+import static com.jayway.restassured.http.ContentType.HTML;
+import static com.jayway.restassured.http.ContentType.JSON;
+import static com.jayway.restassured.http.ContentType.XML;
 import static com.openweathermap.Cities.CITIES;
 
+import com.jayway.restassured.http.ContentType;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.HashMap;
@@ -15,6 +19,12 @@ public class Common {
     public static final String CURRENT_WEATHER_URL = BASE_API_URL+"/weather?appid="+API_KEY+"&";
     public static final String FORECAST5_WEATHER_URL = BASE_API_URL+"/forecast5?appid="+API_KEY+"&";
 
+    public static final HashMap<String, ContentType> CONTENT_TYPES = new HashMap(){{
+        put("json", JSON);
+        put("xml", XML);
+        put("html", HTML);
+    }};
+
     public static HashMap getRandomCity(){
         return CITIES.get(new Random().nextInt(CITIES.size()));
     }
@@ -23,7 +33,7 @@ public class Common {
         return map.get("name").toString();
     }
 
-    public static Integer getCityCodeFromMap(HashMap<String, Object> map){
+    public static Integer getCityIdFromMap(HashMap<String, Object> map){
         return (Integer) map.get("id");
     }
 
@@ -33,6 +43,6 @@ public class Common {
 
     public static String randomString()
     {
-        return RandomStringUtils.randomAlphanumeric(10);
+        return RandomStringUtils.randomAlphanumeric(20);
     }
 }
