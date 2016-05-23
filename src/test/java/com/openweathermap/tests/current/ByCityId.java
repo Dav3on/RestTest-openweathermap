@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.http.ContentType.JSON;
 import static com.openweathermap.Common.*;
 import static com.openweathermap.Common.CURRENT_WEATHER_URL;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 import com.jayway.restassured.http.ContentType;
 
+//http://openweathermap.org/current#cityid
 public class ByCityId {
     private String cityName;
     private String countyCode;
@@ -46,19 +46,10 @@ public class ByCityId {
                 log().ifValidationFails().
                 assertThat().statusCode(200);
     }
-    @Test
-    public void defaultResponseContentTypeIsJSON(){
-        given().
-                param("id", cityId).
-        when().
-                get(CURRENT_WEATHER_URL).
-        then().
-                log().ifValidationFails().
-                assertThat().contentType(JSON);
-    }
 
     @Test
-    public void checkContentTypes(){
+    public void checkResponseContentTypes(){
+        //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
             given().
                     param("id", cityId).
@@ -86,6 +77,7 @@ public class ByCityId {
     public void checkBodyMessageWhenCityIdIncorrect(){
         given().
                 param("id", randomString()).
+                param("mode", "xml").
         when().
                 get(CURRENT_WEATHER_URL).
         then().
@@ -93,4 +85,19 @@ public class ByCityId {
                 assertThat().body("cod", equalTo("404")).and().
                 body("message", equalTo("Error: Not found city"));
     }
+
+    @Test
+    public void checkCityIdAndNameInJSONPayload(){
+        given().
+                param("id", cityId).
+                param("mode", "json").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("name", equalTo(cityName)).and().
+                body("id", equalTo(cityId)).and().
+                body("sys.country", equalTo(countyCode));
+    }
+
 }

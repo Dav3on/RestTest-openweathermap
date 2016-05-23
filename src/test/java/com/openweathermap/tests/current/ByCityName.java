@@ -13,6 +13,7 @@ import static com.jayway.restassured.http.ContentType.JSON;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static com.openweathermap.Common.*;
 
+//http://openweathermap.org/current#name
 public class ByCityName {
     private String cityName;
     private String countyCode;
@@ -46,18 +47,8 @@ public class ByCityName {
     }
 
     @Test
-    public void defaultResponseContentTypeIsJSON(){
-        given().
-                param("q", cityName).
-        when().
-                get(CURRENT_WEATHER_URL).
-        then().
-                log().ifValidationFails().
-                assertThat().contentType(JSON);
-    }
-
-    @Test
-    public void checkContentTypes(){
+    public void checkResponseContentTypes(){
+        //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
             given().
                     param("q", cityName).
@@ -86,6 +77,7 @@ public class ByCityName {
     public void checkBodyMessageWhenCityNameIncorrect(){
         given().
                 param("q", randomString()).
+                param("mode", "json").
         when().
                 get(CURRENT_WEATHER_URL).
         then().

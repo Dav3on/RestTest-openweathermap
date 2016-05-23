@@ -4,6 +4,7 @@ import static com.jayway.restassured.http.ContentType.HTML;
 import static com.jayway.restassured.http.ContentType.JSON;
 import static com.jayway.restassured.http.ContentType.XML;
 import static com.openweathermap.Cities.CITIES;
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.round;
 
 import com.jayway.restassured.http.ContentType;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -20,6 +21,7 @@ public class Common {
     public static final String FORECAST5_WEATHER_URL = BASE_API_URL+"/forecast5?appid="+API_KEY+"&";
 
     public static final HashMap<String, ContentType> CONTENT_TYPES = new HashMap(){{
+        put("", JSON);
         put("json", JSON);
         put("xml", XML);
         put("html", HTML);
@@ -31,6 +33,14 @@ public class Common {
 
     public static String getCityNameFromMap(HashMap<String, Object> map){
         return map.get("name").toString();
+    }
+
+    public static Float getLatNameFromMap(HashMap<String, Object> map){
+        return round((Float) map.get("lat"), 2);
+    }
+
+    public static Float getLonNameFromMap(HashMap<String, Object> map){
+        return round((Float) map.get("lon"), 2);
     }
 
     public static Integer getCityIdFromMap(HashMap<String, Object> map){
