@@ -12,8 +12,8 @@ import static com.jayway.restassured.RestAssured.given;
 import static com.openweathermap.Common.*;
 import static com.openweathermap.Common.CURRENT_WEATHER_URL;
 import static com.openweathermap.Common.randomString;
-import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 
 //http://openweathermap.org/current#geo

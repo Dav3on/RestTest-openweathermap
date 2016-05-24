@@ -21,7 +21,7 @@ public class Common {
     public static final String CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL = BASE_API_URL+"/find?appid="+API_KEY+"&";
     public static final String FORECAST5_WEATHER_URL = BASE_API_URL+"/forecast5?appid="+API_KEY+"&";
 
-    public static final HashMap<String, ContentType> CONTENT_TYPES = new HashMap(){{
+    public static final HashMap<String, ContentType> CONTENT_TYPES = new HashMap<String, ContentType>(){{
         put("", JSON);
         put("json", JSON);
         put("xml", XML);

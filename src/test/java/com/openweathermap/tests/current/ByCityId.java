@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.http.ContentType.XML;
 import static com.openweathermap.Common.*;
 import static com.openweathermap.Common.CURRENT_WEATHER_URL;
-import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.*;
 
