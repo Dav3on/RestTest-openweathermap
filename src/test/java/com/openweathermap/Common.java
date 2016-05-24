@@ -18,6 +18,7 @@ public class Common {
     public static final String API_KEY = "6f95c082f65aa559778111e7f0894efc";
 
     public static final String CURRENT_WEATHER_URL = BASE_API_URL+"/weather?appid="+API_KEY+"&";
+    public static final String CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL = BASE_API_URL+"/find?appid="+API_KEY+"&";
     public static final String FORECAST5_WEATHER_URL = BASE_API_URL+"/forecast5?appid="+API_KEY+"&";
 
     public static final HashMap<String, ContentType> CONTENT_TYPES = new HashMap(){{
