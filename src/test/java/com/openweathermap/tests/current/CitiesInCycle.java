@@ -18,7 +18,9 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 
-//http://openweathermap.org/current#cycle
+/*http://openweathermap.org/current#cycle
+I'll not verify languages because there is only one parameter in language except English - "clouds"
+(i can't verify weather in real time without some test data from DB) */
 public class CitiesInCycle {
     private Float lat;
     private Float lon;
