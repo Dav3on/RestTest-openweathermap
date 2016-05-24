@@ -51,6 +51,10 @@ public class Common {
         return map.get("country").toString();
     }
 
+    public static Integer getZipCodeFromMap(HashMap<String, Object> map){
+        return (Integer) map.get("zip");
+    }
+
     public static String randomString()
     {
         return RandomStringUtils.randomAlphanumeric(20);

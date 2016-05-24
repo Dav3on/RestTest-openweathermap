@@ -6,7 +6,8 @@ import java.util.HashMap;
 
 public class Cities {
 
-    //List of city ID city.list.json.gz can be downloaded here http://bulk.openweathermap.org/sample/
+    /*List of city ID city.list.json.gz can be downloaded here http://bulk.openweathermap.org/sample/
+    The service isn't provide the list of postal codes so i get it from http://www.geopostcodes.com/Ukraine*/
     public static final ArrayList<HashMap> CITIES = new ArrayList<HashMap>(Arrays.asList(
             new HashMap() {{
                 put("name", "Kiev");
@@ -14,6 +15,7 @@ public class Cities {
                 put("country", "UA");
                 put("lon", 30.516666f);
                 put("lat", 50.433334f);
+                put("zip", 80363);
             }},
             new HashMap() {{
                 put("name", "Ternopil");
@@ -21,6 +23,7 @@ public class Cities {
                 put("country", "UA");
                 put("lon", 25.60556f);
                 put("lat", 49.555889f);
+                put("zip", 61101);
             }},
             new HashMap() {{
                 put("name", "Kherson");
@@ -28,6 +31,7 @@ public class Cities {
                 put("country", "UA");
                 put("lon", 32.617802f);
                 put("lat", 46.655811f);
+                put("zip", 65101);
             }},
             new HashMap() {{
                 put("name", "Lutsk");
@@ -35,6 +39,7 @@ public class Cities {
                 put("country", "UA");
                 put("lon", 25.34244f);
                 put("lat", 50.759319f);
+                put("zip", 43001);
             }},
             new HashMap() {{
                 put("name", "Irpin");
@@ -42,6 +47,7 @@ public class Cities {
                 put("country", "UA");
                 put("lon", 30.250549f);
                 put("lat", 50.521751f);
+                put("zip", 8201);
             }}
     ));
 }

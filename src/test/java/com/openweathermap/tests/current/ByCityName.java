@@ -10,8 +10,10 @@ import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.JSON;
+import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static com.openweathermap.Common.*;
+import static org.hamcrest.Matchers.not;
 
 //http://openweathermap.org/current#name
 public class ByCityName {
@@ -19,6 +21,7 @@ public class ByCityName {
     private String countyCode;
     private Integer cityId;
 
+    //You can change to @BeforeClass if needed.
     @Before
     public void setUp()
     {
@@ -83,7 +86,8 @@ public class ByCityName {
         then().
                 log().ifValidationFails().
                 assertThat().body("cod", equalTo("404")).and().
-                body("message", equalTo("Error: Not found city"));
+                body("message", equalTo("Error: Not found city")).and().
+                contentType(JSON);
     }
 
     @Test
@@ -136,5 +140,31 @@ public class ByCityName {
                 log().ifValidationFails().
                 assertThat().body("current.city.@name", equalTo(cityName)).and().
                 body("current.city.@id", equalTo(cityId.toString()));
+    }
+
+    @Test
+    public void checkWeatherIsNotEmptyInJSON(){
+        given().
+                param("q", cityName).
+                param("mode", "json").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("main.temp", not(empty())).and().
+                body("weather.description", not(empty()));
+    }
+
+    @Test
+    public void checkWeatherIsNotEmptyInXML(){
+        given().
+                param("q", cityName).
+                param("mode", "xml").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("current.temperature.@value ", not(empty())).and().
+                body("current.clouds.@value ", not(empty()));
     }
 }

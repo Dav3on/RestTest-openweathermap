@@ -12,7 +12,9 @@ import static com.jayway.restassured.RestAssured.given;
 import static com.openweathermap.Common.*;
 import static com.openweathermap.Common.CURRENT_WEATHER_URL;
 import static com.openweathermap.Common.randomString;
+import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 //http://openweathermap.org/current#geo
 public class ByGeographicCoordinates {
@@ -22,6 +24,7 @@ public class ByGeographicCoordinates {
     private Float lat;
     private Float lon;
 
+    //You can change to @BeforeClass if needed.
     @Before
     public void setUp()
     {
@@ -122,9 +125,9 @@ public class ByGeographicCoordinates {
                 body("coord.lon", equalTo(lon));
     }
 
-    //This test fails sometimes. Somehow in ISO standard by this lat and lon both "Kiev" and "Misto Kyiv"
+    //This test fails sometimes. Somehow in ISO standard by Kiev lat and lon both "Kiev" and "Misto Kyyiv"
     @Test
-    public void checkCityNameIdAndCountyCodyByLatLon(){
+    public void checkCityNameIdAndCountyCodyByLatLonJSON(){
         given().
                 param("lat", lat).
                 param("lon", lon).
@@ -136,5 +139,50 @@ public class ByGeographicCoordinates {
                 assertThat().body("name", equalTo(cityName)).and().
                 body("id", equalTo(cityId)).and().
                 body("sys.country", equalTo(countyCode));
+    }
+
+    //The same as previous test fails sometimes because its both "Kiev" and "Misto Kyyiv" by Kiev lat and lon
+
+    @Test
+    public void checkCityNameIdAndCountyCodyByLatLonXML(){
+        given().
+                param("lat", lat).
+                param("lon", lon).
+                param("mode", "xml").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("current.city.@name", equalTo(cityName)).and().
+                body("current.city.@id", equalTo(cityId.toString())).and().
+                body("current.city.country", equalTo(countyCode));
+    }
+
+    @Test
+    public void checkWeatherIsNotEmptyInJSON(){
+        given().
+                param("lat", lat).
+                param("lon", lon).
+                param("mode", "json").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("main.temp", not(empty())).and().
+                body("weather.description", not(empty()));
+    }
+
+    @Test
+    public void checkWeatherIsNotEmptyInXML(){
+        given().
+                param("lat", lat).
+                param("lon", lon).
+                param("mode", "xml").
+        when().
+                get(CURRENT_WEATHER_URL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("current.temperature.@value ", not(empty())).and().
+                body("current.clouds.@value ", not(empty()));
     }
 }
