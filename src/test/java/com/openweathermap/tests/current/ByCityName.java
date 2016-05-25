@@ -17,6 +17,8 @@ import static org.hamcrest.Matchers.not;
 
 //http://openweathermap.org/current#name
 public class ByCityName {
+    public final String endpointURL = BASE_API_URL+"/weather?appid="+API_KEY+"&";
+
     private String cityName;
     private String countyCode;
     private Integer cityId;
@@ -43,7 +45,7 @@ public class ByCityName {
         given().
                 param("q", cityName).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(200);
@@ -57,7 +59,7 @@ public class ByCityName {
                     param("q", cityName).
                     param("mode", entry.getKey()).
             when().
-                    get(CURRENT_WEATHER_URL).
+                    get(endpointURL).
             then().
                     log().ifValidationFails().
                     assertThat().contentType(entry.getValue());
@@ -69,7 +71,7 @@ public class ByCityName {
         given().
                 param("q", randomString()).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(404);
@@ -82,7 +84,7 @@ public class ByCityName {
                 param("q", randomString()).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("cod", equalTo("404")).and().
@@ -91,12 +93,12 @@ public class ByCityName {
     }
 
     @Test
-    public void checkCityIdInJSONPayload(){
+    public void checkCityIdInJSON(){
         given().
                 param("q", cityName).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("name", equalTo(cityName)).and().
@@ -104,12 +106,12 @@ public class ByCityName {
     }
 
     @Test
-    public void checkCountryCodeInJSONPayload(){
+    public void checkCountryCodeInJSON(){
         given().
                 param("q", cityName+","+countyCode).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("name", equalTo(cityName)).and().
@@ -117,12 +119,12 @@ public class ByCityName {
     }
 
     @Test
-    public void checkCityIdInXMLPayload(){
+    public void checkCityIdInXML(){
         given().
                 param("q", cityName).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("current.city.@name", equalTo(cityName)).and().
@@ -130,12 +132,12 @@ public class ByCityName {
     }
 
     @Test
-    public void checkCountryCodeInXMLPayload(){
+    public void checkCountryCodeByCityAndCodeInXML(){
         given().
                 param("q", cityName+","+countyCode).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("current.city.@name", equalTo(cityName)).and().
@@ -148,7 +150,7 @@ public class ByCityName {
                 param("q", cityName).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("main.temp", not(empty())).and().
@@ -161,7 +163,7 @@ public class ByCityName {
                 param("q", cityName).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("current.temperature.@value ", not(empty())).and().

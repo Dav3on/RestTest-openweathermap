@@ -9,7 +9,6 @@ import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
 import static com.openweathermap.Common.*;
-import static com.openweathermap.Common.CURRENT_WEATHER_URL;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.*;
 
@@ -17,6 +16,8 @@ import com.jayway.restassured.http.ContentType;
 
 //http://openweathermap.org/current#cityid
 public class ByCityId {
+    public final String endpointURL = BASE_API_URL+"/weather?appid="+API_KEY+"&";
+
     private String cityName;
     private String countyCode;
     private Integer cityId;
@@ -43,7 +44,7 @@ public class ByCityId {
         given().
                 param("id", cityId).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(200);
@@ -57,7 +58,7 @@ public class ByCityId {
                     param("id", cityId).
                     param("mode", entry.getKey()).
             when().
-                    get(CURRENT_WEATHER_URL).
+                    get(endpointURL).
             then().
                     log().ifValidationFails().
                     assertThat().contentType(entry.getValue());
@@ -69,7 +70,7 @@ public class ByCityId {
         given().
                 param("id", randomString()).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(404);
@@ -81,7 +82,7 @@ public class ByCityId {
                 param("id", randomString()).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("cod", equalTo("404")).and().
@@ -89,12 +90,12 @@ public class ByCityId {
     }
 
     @Test
-    public void checkCityIdAndNameInJSONPayload(){
+    public void checkCityIdAndNameInJSON(){
         given().
                 param("id", cityId).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("name", equalTo(cityName)).and().
@@ -103,12 +104,26 @@ public class ByCityId {
     }
 
     @Test
+    public void checkCityIdAndNameInXML(){
+        given().
+                param("id", cityId).
+                param("mode", "xml").
+        when().
+                get(endpointURL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("current.city.@name", equalTo(cityName)).and().
+                body("current.city.@id", equalTo(cityId.toString())).and().
+                body("current.city.country", equalTo(countyCode));
+    }
+
+    @Test
     public void checkWeatherIsNotEmptyInJSON(){
         given().
                 param("id", cityId).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("main.temp", not(empty())).and().
@@ -121,7 +136,7 @@ public class ByCityId {
                 param("id", cityId).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("current.temperature.@value ", not(empty())).and().

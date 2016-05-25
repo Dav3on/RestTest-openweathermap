@@ -11,8 +11,8 @@ import java.util.Random;
 
 import static com.jayway.restassured.RestAssured.given;
 import static com.openweathermap.Common.*;
-import static com.openweathermap.Common.getLatNameFromMap;
-import static com.openweathermap.Common.getLonNameFromMap;
+import static com.openweathermap.Common.getLatFromMap;
+import static com.openweathermap.Common.getLonFromMap;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.empty;
@@ -22,6 +22,8 @@ import static org.hamcrest.Matchers.not;
 I'll not verify languages because there is only one parameter in language except English - "clouds"
 (i can't verify weather in real time without some test data from DB) */
 public class CitiesInCycle {
+    public final String endpointURL = BASE_API_URL+"/find?appid="+API_KEY+"&";
+
     private Float lat;
     private Float lon;
     private String cityName;
@@ -32,8 +34,8 @@ public class CitiesInCycle {
     public void setUp()
     {
         HashMap<String, Object> city = getRandomCity();
-        lat = getLatNameFromMap(city);
-        lon = getLonNameFromMap(city);
+        lat = getLatFromMap(city);
+        lon = getLonFromMap(city);
         cityName = getCityNameFromMap(city);
         cnt = new Random().nextInt(10)+1; // for range 1-11
     }
@@ -54,7 +56,7 @@ public class CitiesInCycle {
                 param("cnt", cnt).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(200);
@@ -71,12 +73,28 @@ public class CitiesInCycle {
                         param("cnt", cnt).
                         param("mode", entry.getKey()).
                 when().
-                        get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
+                        get(endpointURL).
                 then().
                         log().ifValidationFails().
                         assertThat().contentType(entry.getValue());
             }
         }
+    }
+
+    //This test fails all the time because if lat/lon is incorrect - system insert 0
+    @Test
+    public void checkBodyMessageWhenLonIncorrect(){
+        given().
+                param("lat", lat).
+                param("lon", randomString()).
+                param("cnt", cnt).
+                param("mode", "json").
+        when().
+                get(endpointURL).
+        then().
+                log().ifValidationFails().
+                assertThat().body("cod", equalTo("404")).and().
+                body("message", equalTo("Error: Not found city"));
     }
 
     @Test
@@ -87,7 +105,7 @@ public class CitiesInCycle {
                 param("cnt", cnt).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("list.name.size()",equalTo(cnt));
@@ -101,27 +119,12 @@ public class CitiesInCycle {
                 param("cnt", cnt).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("list.name", hasItem(cityName));
     }
 
-    //This test fails all the time because if lat/lon is incorrect - system insert 0
-    @Test
-    public void checkBodyMessageWhenLonIncorrect(){
-        given().
-                param("lat", lat).
-                param("lon", randomString()).
-                param("cnt", cnt).
-                param("mode", "json").
-        when().
-                get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
-        then().
-                log().ifValidationFails().
-                assertThat().body("cod", equalTo("404")).and().
-                body("message", equalTo("Error: Not found city"));
-    }
 
     @Test
     public void countCitiesInResponseXML(){
@@ -131,7 +134,7 @@ public class CitiesInCycle {
                 param("cnt", cnt).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("cities.list.item.city.@name.size()",equalTo(cnt));
@@ -147,7 +150,7 @@ public class CitiesInCycle {
                 param("cnt", cnt).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("cities.list.item.city.@name", hasItem(cityName));
@@ -161,7 +164,7 @@ public class CitiesInCycle {
                 param("cnt", cnt).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("list.main.temp", not(empty())).and().
@@ -176,7 +179,7 @@ public class CitiesInCycle {
                 param("cnt", cnt).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_FOR_SEVERAL_CITIES_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("cities.list.item.temperature.@value", not(empty())).and().

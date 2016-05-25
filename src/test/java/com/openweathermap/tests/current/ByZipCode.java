@@ -13,12 +13,13 @@ import java.util.Map;
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.http.ContentType.XML;
 import static com.openweathermap.Common.*;
-import static com.openweathermap.Common.CURRENT_WEATHER_URL;
 import static com.openweathermap.Common.randomString;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 //The service isn't provide the list of postal codes so i get it from http://www.geopostcodes.com/Ukraine
 public class ByZipCode {
+    public final String endpointURL = BASE_API_URL+"/weather?appid="+API_KEY+"&";
+
     private String countyCode;
     private Integer zipCode;
     private String cityName;
@@ -51,7 +52,7 @@ public class ByZipCode {
         given().
                 param("zip", zipWithCountyCode).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(200);
@@ -65,7 +66,7 @@ public class ByZipCode {
                     param("zip", zipWithCountyCode).
                     param("mode", entry.getKey()).
             when().
-                    get(CURRENT_WEATHER_URL).
+                    get(endpointURL).
             then().
                     log().ifValidationFails().
                     assertThat().contentType(entry.getValue());
@@ -73,23 +74,23 @@ public class ByZipCode {
     }
 
     @Test
-    public void status404WhenCityIdIncorrect(){
+    public void status404WhenZipCodeIncorrect(){
         given().
                 param("zip", randomString()).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(404);
     }
 
     @Test
-    public void checkBodyMessageWhenCityIdIncorrect(){
+    public void checkBodyMessageWhenZipCodeIncorrect(){
         given().
                 param("zip", randomString()).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("cod", equalTo("404")).and().
@@ -98,12 +99,12 @@ public class ByZipCode {
     }
 
     @Test
-    public void checkCityDataByZipCodeInJSON(){
+    public void checkCityDataInJSON(){
         given().
                 param("zip", randomString()).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("name", equalTo(cityName)).and().
@@ -112,12 +113,12 @@ public class ByZipCode {
     }
 
     @Test
-    public void checkCityDataByZipCodeInXML(){
+    public void checkCityDataInXML(){
         given().
                 param("zip", randomString()).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("current.city.@name", equalTo(cityName)).and().

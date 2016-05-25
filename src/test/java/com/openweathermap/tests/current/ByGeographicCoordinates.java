@@ -10,7 +10,6 @@ import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
 import static com.openweathermap.Common.*;
-import static com.openweathermap.Common.CURRENT_WEATHER_URL;
 import static com.openweathermap.Common.randomString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.empty;
@@ -18,6 +17,8 @@ import static org.hamcrest.Matchers.not;
 
 //http://openweathermap.org/current#geo
 public class ByGeographicCoordinates {
+    public final String endpointURL = BASE_API_URL+"/weather?appid="+API_KEY+"&";
+
     private String cityName;
     private String countyCode;
     private Integer cityId;
@@ -32,8 +33,8 @@ public class ByGeographicCoordinates {
         cityName = getCityNameFromMap(city);
         countyCode = getCountryCodeFromMap(city);
         cityId = getCityIdFromMap(city);
-        lat = getLatNameFromMap(city);
-        lon = getLonNameFromMap(city);
+        lat = getLatFromMap(city);
+        lon = getLonFromMap(city);
     }
 
     @After
@@ -51,7 +52,7 @@ public class ByGeographicCoordinates {
                 param("lat", lat).
                 param("lon", lon).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(200);
@@ -66,7 +67,7 @@ public class ByGeographicCoordinates {
                     param("lon", lon).
                     param("mode", entry.getKey()).
             when().
-                    get(CURRENT_WEATHER_URL).
+                    get(endpointURL).
             then().
                     log().ifValidationFails().
                     assertThat().contentType(entry.getValue());
@@ -79,7 +80,7 @@ public class ByGeographicCoordinates {
                 param("lat", randomString()).
                 param("lon", lon).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(404);
@@ -91,7 +92,7 @@ public class ByGeographicCoordinates {
                 param("lat", lat).
                 param("lon", randomString()).
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().statusCode(404);
@@ -104,7 +105,7 @@ public class ByGeographicCoordinates {
                 param("lon", randomString()).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("cod", equalTo("404")).and().
@@ -118,7 +119,7 @@ public class ByGeographicCoordinates {
                 param("lon", lon).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("coord.lat", equalTo(lat)).and().
@@ -127,13 +128,13 @@ public class ByGeographicCoordinates {
 
     //This test fails sometimes. Somehow in ISO standard by Kiev lat and lon both "Kiev" and "Misto Kyyiv"
     @Test
-    public void checkCityNameIdAndCountyCodyByLatLonJSON(){
+    public void checkCityNameIdAndCountyCodeJSON(){
         given().
                 param("lat", lat).
                 param("lon", lon).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("name", equalTo(cityName)).and().
@@ -142,15 +143,14 @@ public class ByGeographicCoordinates {
     }
 
     //The same as previous test fails sometimes because its both "Kiev" and "Misto Kyyiv" by Kiev lat and lon
-
     @Test
-    public void checkCityNameIdAndCountyCodyByLatLonXML(){
+    public void checkCityNameIdAndCountyCodeXML(){
         given().
                 param("lat", lat).
                 param("lon", lon).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("current.city.@name", equalTo(cityName)).and().
@@ -165,7 +165,7 @@ public class ByGeographicCoordinates {
                 param("lon", lon).
                 param("mode", "json").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("main.temp", not(empty())).and().
@@ -179,7 +179,7 @@ public class ByGeographicCoordinates {
                 param("lon", lon).
                 param("mode", "xml").
         when().
-                get(CURRENT_WEATHER_URL).
+                get(endpointURL).
         then().
                 log().ifValidationFails().
                 assertThat().body("current.temperature.@value ", not(empty())).and().
