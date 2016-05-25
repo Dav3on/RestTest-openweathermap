@@ -62,11 +62,12 @@ public class CitiesInCycle {
                 assertThat().statusCode(200);
     }
 
+    /*Service doesn't support HTML for this method response, but there isn't any mention about that in documentation
+    http://openweathermap.org/current#format */
     @Test
     public void checkResponseContentTypes(){
         //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
-            if (entry.getValue() != ContentType.HTML) {     //HTML not supported
                 given().
                         param("lat", lat).
                         param("lon", lon).
@@ -77,7 +78,6 @@ public class CitiesInCycle {
                 then().
                         log().ifValidationFails().
                         assertThat().contentType(entry.getValue());
-            }
         }
     }
 

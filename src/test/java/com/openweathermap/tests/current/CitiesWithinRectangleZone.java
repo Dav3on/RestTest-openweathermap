@@ -22,6 +22,7 @@ public class CitiesWithinRectangleZone {
     private String cityName;
     private Float lat;
     private Float lon;
+    private String bbox;
 
     //You can change to @BeforeClass if needed.
     @Before
@@ -31,6 +32,7 @@ public class CitiesWithinRectangleZone {
         cityName = getCityNameFromMap(city);
         lat = getLatFromMap(city);
         lon = getLonFromMap(city);
+        bbox = (lon-0.5)+","+(lat-0.5)+","+(lon+0.5)+","+(lat+0.5); //bounding box that include current city
     }
 
     @After
@@ -38,16 +40,13 @@ public class CitiesWithinRectangleZone {
         cityName = null;
         lat = null;
         lon = null;
-    }
-
-    public String formCurrentCityBoundingBox(){
-        return (this.lon-0.5)+","+(this.lat-0.5)+","+(this.lon+0.5)+","+(this.lat+0.5); //bounding box [lon-left,lat-bottom,lon-right,lat-top]
+        bbox = null;
     }
 
     @Test
     public void status200WhenRectangleCorrect(){
         given().
-                param("bbox", formCurrentCityBoundingBox()).
+                param("bbox", bbox).
                 param("mode", "json").
         when().
                 get(endpointURL).
@@ -59,7 +58,7 @@ public class CitiesWithinRectangleZone {
     @Test
     public void checkResponseContentTypeIsJSON(){
             given().
-                    param("bbox", formCurrentCityBoundingBox()).
+                    param("bbox", bbox).
                     param("mode", "json").
             when().
                     get(endpointURL).
@@ -72,7 +71,7 @@ public class CitiesWithinRectangleZone {
     @Test
     public void checkCityInResponse(){
         given().
-                param("bbox", formCurrentCityBoundingBox()).
+                param("bbox", bbox).
                 param("mode", "json").
         when().
                 get(endpointURL).
@@ -84,7 +83,7 @@ public class CitiesWithinRectangleZone {
     @Test
     public void checkWeatherIsNotEmptyInJSON(){
         given().
-                param("bbox", formCurrentCityBoundingBox()).
+                param("bbox", bbox).
                 param("mode", "json").
         when().
                 get(endpointURL).

@@ -24,7 +24,7 @@ public class ByZipCode {
     private Integer zipCode;
     private String cityName;
     private Integer cityId;
-    String zipWithCountyCode;
+    private String zipWithCountyCode;
 
     //You can change to @BeforeClass if needed.
     @Before
