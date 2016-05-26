@@ -33,8 +33,8 @@ public class SeveralCityIds {
         }
 
         for (HashMap map: arr){
-            cityIds.add((Integer) map.get("id")); //Form List of IDs for expectation
-            cityIdsForRequest += map.get("id").toString()+","; //Form String of IDs for request
+            cityIds.add((Integer) map.get("id")); //Create List of IDs for expectation
+            cityIdsForRequest += map.get("id").toString()+","; //Create String of IDs for request param
         }
         cityIdsForRequest = cityIdsForRequest.substring(0, cityIdsForRequest.length()-1);
     }
@@ -99,7 +99,7 @@ public class SeveralCityIds {
     }
 
     @Test
-    public void countWeatherIsNotEmptyJSON(){
+    public void checkWeatherIsNotEmptyJSON(){
         given().
                 param("id", cityIdsForRequest).
                 param("mode", "json").
