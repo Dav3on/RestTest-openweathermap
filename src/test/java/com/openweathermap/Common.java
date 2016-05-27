@@ -15,6 +15,7 @@ import java.util.Random;
 public class Common {
 
     public static final String BASE_API_URL = "http://api.openweathermap.org/data/2.5";
+    public static final Integer DEFAULT_PORT = 80;
     public static final String API_KEY = "6f95c082f65aa559778111e7f0894efc";
 
     public static final HashMap<String, ContentType> CONTENT_TYPES = new HashMap<String, ContentType>(){{
@@ -32,12 +33,12 @@ public class Common {
         return map.get("name").toString();
     }
 
-    public static Float getLatFromMap(HashMap<String, Object> map){
-        return round((Float) map.get("lat"), 2);
+    public static Float getLatFromMap(HashMap<String, Object> map, int roundTo){
+        return (float) round((Double) map.get("lat"), roundTo);
     }
 
-    public static Float getLonFromMap(HashMap<String, Object> map){
-        return round((Float) map.get("lon"), 2);
+    public static Float getLonFromMap(HashMap<String, Object> map, int roundTo){
+        return (float) round((Double) map.get("lon"), roundTo);
     }
 
     public static Integer getCityIdFromMap(HashMap<String, Object> map){
@@ -55,5 +56,9 @@ public class Common {
     public static String randomString()
     {
         return RandomStringUtils.randomAlphanumeric(20);
+    }
+
+    public static void drawSeparator(){
+        System.out.println("------------------------------------------------------");
     }
 }

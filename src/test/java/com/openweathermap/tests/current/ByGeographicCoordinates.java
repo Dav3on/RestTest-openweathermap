@@ -33,8 +33,8 @@ public class ByGeographicCoordinates {
         cityName = getCityNameFromMap(city);
         countyCode = getCountryCodeFromMap(city);
         cityId = getCityIdFromMap(city);
-        lat = getLatFromMap(city);
-        lon = getLonFromMap(city);
+        lat = getLatFromMap(city, 2);
+        lon = getLonFromMap(city, 2);
     }
 
     @After

@@ -142,5 +142,4 @@ public class ByCityId {
                 assertThat().body("current.temperature.@value ", not(empty())).and().
                 body("current.clouds.@value ", not(empty()));
     }
-
 }

@@ -30,8 +30,8 @@ public class CitiesWithinRectangleZone {
     {
         HashMap<String, Object> city = getRandomCity();
         cityName = getCityNameFromMap(city);
-        lat = getLatFromMap(city);
-        lon = getLonFromMap(city);
+        lat = getLatFromMap(city, 2);
+        lon = getLonFromMap(city, 2);
         bbox = (lon-0.5)+","+(lat-0.5)+","+(lon+0.5)+","+(lat+0.5); //bounding box that include current city
     }
 

@@ -34,8 +34,8 @@ public class CitiesInCycle {
     public void setUp()
     {
         HashMap<String, Object> city = getRandomCity();
-        lat = getLatFromMap(city);
-        lon = getLonFromMap(city);
+        lat = getLatFromMap(city, 2);
+        lon = getLonFromMap(city, 2);
         cityName = getCityNameFromMap(city);
         cnt = new Random().nextInt(10)+1; // for range 1-11
     }
