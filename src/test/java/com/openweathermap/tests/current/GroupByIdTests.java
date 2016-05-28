@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.empty;
 
 //http://openweathermap.org/current#severalid
-public class SeveralCityIds {
+public class GroupByIdTests {
     public final String endpointURL = BASE_API_URL+"/group?appid="+API_KEY+"&";
 
     private ArrayList<HashMap> arr = new ArrayList<HashMap>();

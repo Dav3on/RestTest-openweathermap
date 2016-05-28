@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 
 //http://openweathermap.org/current#rectangle
-public class CitiesWithinRectangleZone {
+public class BBoxCityTests {
     public final String endpointURL = BASE_API_URL+"/box/city?appid="+API_KEY+"&";
 
     private String cityName;

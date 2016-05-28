@@ -59,6 +59,6 @@ public class Common {
     }
 
     public static void drawSeparator(){
-        System.out.println("------------------------------------------------------");
+        System.out.println("_____________________________________________________");
     }
 }
