@@ -201,7 +201,7 @@ public class WeatherTests {
                         Error messages tests
     __________________________________________________________________ */
 
-
+    //Im not sure about message. While i writing this test they switch it twice from json to html and back
     @Test
     public void checkBodyMessageWhenUnauthorized(){
         for (RequestSpecification paramFromList: requestParams) {

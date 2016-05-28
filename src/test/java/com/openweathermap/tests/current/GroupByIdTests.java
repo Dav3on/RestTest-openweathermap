@@ -44,11 +44,13 @@ public class GroupByIdTests {
         arr.clear();
         cityIds.clear();
         cityIdsForRequest = null;
+
+        drawSeparator();
     }
 
     @Test
     public void status200WhenCityIdsCorrect(){
-        given().
+        given().log().all().
                 param("id", cityIdsForRequest).
         when().
                 get(endpointURL).
@@ -63,7 +65,7 @@ public class GroupByIdTests {
     public void checkResponseContentTypes(){
         //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
-            given().
+            given().log().all().
                     param("id", cityIdsForRequest).
                     param("mode", entry.getKey()).
             when().
@@ -71,12 +73,14 @@ public class GroupByIdTests {
             then().
                     log().ifValidationFails().
                     assertThat().contentType(entry.getValue());
+
+            drawSeparator();
         }
     }
 
     @Test
     public void checkCityIdsPresentJSON(){
-        given().
+        given().log().all().
                 param("id", cityIdsForRequest).
                 param("mode", "json").
         when().
@@ -88,7 +92,7 @@ public class GroupByIdTests {
 
     @Test
     public void countWeatherInResponseJSON(){
-        given().
+        given().log().all().
                 param("id", cityIdsForRequest).
                 param("mode", "json").
         when().
@@ -100,7 +104,7 @@ public class GroupByIdTests {
 
     @Test
     public void checkWeatherIsNotEmptyJSON(){
-        given().
+        given().log().all().
                 param("id", cityIdsForRequest).
                 param("mode", "json").
         when().

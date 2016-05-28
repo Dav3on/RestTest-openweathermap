@@ -18,9 +18,7 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 
-/*http://openweathermap.org/current#cycle
-I'll not verify languages because there is only one parameter in language except English - "clouds"
-(i can't verify weather in real time without some test data from DB) */
+//http://openweathermap.org/current#cycle
 public class FindInCircleTests {
     public final String endpointURL = BASE_API_URL+"/find?appid="+API_KEY+"&";
 
@@ -46,11 +44,13 @@ public class FindInCircleTests {
         lon = null;
         cityName = null;
         cnt = null;
+
+        drawSeparator();
     }
 
     @Test
     public void status200WhenLatLongCorrect(){
-        given().
+        given().log().all().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -62,13 +62,27 @@ public class FindInCircleTests {
                 assertThat().statusCode(200);
     }
 
+    @Test
+    public void status400WhenCountIncorrect(){
+        given().log().all().
+                param("lat", lat).
+                param("lon", lon).
+                param("cnt", 0).
+                param("mode", "json").
+        when().
+                get(endpointURL).
+        then().
+                log().ifValidationFails().
+                assertThat().statusCode(400);
+    }
+
     /*Service doesn't support HTML for this method response, but there isn't any mention about that in documentation
     http://openweathermap.org/current#format */
     @Test
     public void checkResponseContentTypes(){
         //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
-                given().
+                given().log().all().
                         param("lat", lat).
                         param("lon", lon).
                         param("cnt", cnt).
@@ -78,13 +92,14 @@ public class FindInCircleTests {
                 then().
                         log().ifValidationFails().
                         assertThat().contentType(entry.getValue());
+
+            drawSeparator();
         }
     }
 
-    //This test fails all the time because if lat/lon is incorrect - system insert 0
     @Test
     public void checkBodyMessageWhenLonIncorrect(){
-        given().
+        given().log().all().
                 param("lat", lat).
                 param("lon", randomString()).
                 param("cnt", cnt).
@@ -99,7 +114,7 @@ public class FindInCircleTests {
 
     @Test
     public void countCitiesInResponseJSON(){
-        given().
+        given().log().all().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -113,7 +128,7 @@ public class FindInCircleTests {
 
     @Test
     public void responseHasCityByCoordinatesJSON(){
-        given().
+        given().log().all().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -128,7 +143,7 @@ public class FindInCircleTests {
 
     @Test
     public void countCitiesInResponseXML(){
-        given().
+        given().log().all().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -144,7 +159,7 @@ public class FindInCircleTests {
     public void responseHasCityByCoordinatesXML(){
         cnt+=1; //to get range 2-12 (for getting Collection, not String)
 
-        given().
+        given().log().all().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -158,7 +173,7 @@ public class FindInCircleTests {
 
     @Test
     public void checkWeatherIsNotEmptyInJSON(){
-        given().
+        given().log().all().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -173,7 +188,7 @@ public class FindInCircleTests {
 
     @Test
     public void checkWeatherIsNotEmptyInXML(){
-        given().
+        given().log().all().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
