@@ -32,7 +32,7 @@ public class BBoxCityTests {
         cityName = getCityNameFromMap(city);
         lat = getLatFromMap(city, 2);
         lon = getLonFromMap(city, 2);
-        bbox = (lon-0.5)+","+(lat-0.5)+","+(lon+0.5)+","+(lat+0.5); //bounding box that include current city
+        bbox = (lon-0.5f)+","+(lat-0.5f)+","+(lon+0.5f)+","+(lat+0.5f); //bounding box that include current city
     }
 
     @After
@@ -67,7 +67,7 @@ public class BBoxCityTests {
                     assertThat().contentType(ContentType.JSON);
     }
 
-    //Unfortunately it works fine just for Kiev.
+    //Unfortunately it works fine only for Kiev.
     @Test
     public void checkCityInResponse(){
         given().log().ifValidationFails().
@@ -80,6 +80,7 @@ public class BBoxCityTests {
                 assertThat().body("list.name", hasItem(cityName));
     }
 
+    //Unfortunately it works fine only for Kiev.
     @Test
     public void checkWeatherIsNotEmptyInJSON(){
         given().log().ifValidationFails().

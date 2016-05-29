@@ -208,7 +208,8 @@ public class WeatherTests {
                     get(BASE_API_URL+"/weather").
             then().
                     log().ifValidationFails().
-                    assertThat().body("html.body.center.h1", equalTo("401 Authorization Required"));
+                    assertThat().body("cod", equalTo(401)).and().
+                    body("message", equalTo("Invalid API key. Please see http://openweathermap.org/faq#error401 for more info."));
         }
     }
 
@@ -267,6 +268,7 @@ public class WeatherTests {
                         Payload tests
     __________________________________________________________________ */
 
+    //By same coordinates sometimes they return "Kiev" or "Misto Kyyiv"
     @Test
     public void checkCityParamsInJsonResponse(){
         //Verify that response identical by all possibles request params

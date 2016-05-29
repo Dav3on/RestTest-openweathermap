@@ -179,7 +179,8 @@ public class ForecastTests {
                     get(BASE_API_URL+"/forecast").
             then().
                     log().ifValidationFails().
-                    assertThat().body("html.body.center.h1", equalTo("401 Authorization Required"));
+                    assertThat().body("cod", equalTo(401)).and().
+                    body("message", equalTo("Invalid API key. Please see http://openweathermap.org/faq#error401 for more info."));
         }
     }
 
