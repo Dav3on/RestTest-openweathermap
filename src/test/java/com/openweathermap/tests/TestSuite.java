@@ -18,6 +18,7 @@ import org.junit.runners.Suite;
 
 })
 
+//Run this to start tests
 public class TestSuite {
 
 }

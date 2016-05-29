@@ -59,7 +59,6 @@ public class WeatherTests {
         lon = null;
         zipCode = null;
         requestParams.clear();
-        drawSeparator();
     }
 
     /* _______________________________________________________________
@@ -68,7 +67,7 @@ public class WeatherTests {
 
     @Test
     public void status200WhenIdCorrectByCityId(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("id", cityId).
         when().
                 get(endpointURL).
@@ -79,7 +78,7 @@ public class WeatherTests {
 
     @Test
     public void status200WhenNameCorrectByCityName(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("q", cityName).
         when().
                 get(endpointURL).
@@ -90,7 +89,7 @@ public class WeatherTests {
 
     @Test
     public void status200WhenNameWithCountyCodeCorrectByCityName(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("q", cityName+","+countyCode).
         when().
                 get(endpointURL).
@@ -101,7 +100,7 @@ public class WeatherTests {
 
     @Test
     public void status200WhenLatLonCorrectByLatLon(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
         when().
@@ -113,7 +112,7 @@ public class WeatherTests {
 
     @Test
     public void status200WhenZipCorrectByZip(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("zip", zipCode+","+countyCode).
         when().
                 get(endpointURL).
@@ -125,15 +124,13 @@ public class WeatherTests {
     @Test
     public void status401WhenUnauthorized(){
         for (RequestSpecification paramFromList: requestParams) {
-            given().log().all().
+            given().log().ifValidationFails().
                     spec(paramFromList).
             when().
                     get(BASE_API_URL+"/forecast").
             then().
                     log().ifValidationFails().
                     assertThat().statusCode(401);
-
-            drawSeparator();
         }
     }
 
@@ -141,7 +138,7 @@ public class WeatherTests {
     public void checkResponseContentTypesById(){
         //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
-            given().log().all().
+            given().log().ifValidationFails().
                     param("id", cityId).
                     param("mode", entry.getKey()).
             when().
@@ -154,7 +151,7 @@ public class WeatherTests {
 
     @Test
     public void status404WhenIdIncorrectByCityId(){
-          given().log().all().
+          given().log().ifValidationFails().
                 param("id", randomString()).
           when().
                 get(endpointURL).
@@ -165,7 +162,7 @@ public class WeatherTests {
 
     @Test
     public void status404WhenNameIncorrectByCityName(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("q", randomString()+","+countyCode).
         when().
                 get(endpointURL).
@@ -176,7 +173,7 @@ public class WeatherTests {
 
     @Test
     public void status404WhenLatIncorrectByLatLon(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", randomString()).
                 param("lon", randomString()).
         when().
@@ -188,7 +185,7 @@ public class WeatherTests {
 
     @Test
     public void status404WhenZipIncorrectByZip(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("zip", randomString()+","+countyCode).
         when().
                 get(endpointURL).
@@ -205,22 +202,19 @@ public class WeatherTests {
     @Test
     public void checkBodyMessageWhenUnauthorized(){
         for (RequestSpecification paramFromList: requestParams) {
-            given().log().all().
+            given().log().ifValidationFails().
                     spec(paramFromList).
             when().
                     get(BASE_API_URL+"/weather").
             then().
                     log().ifValidationFails().
-                    assertThat().body("cod", equalTo(401)).and().
-                    body("message", equalTo("Invalid API key. Please see http://openweathermap.org/faq#error401 for more info."));
-
-            drawSeparator();
+                    assertThat().body("html.body.center.h1", equalTo("401 Authorization Required"));
         }
     }
 
     @Test
     public void checkBodyMessageWhenIdIncorrectByCityId(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("id", randomString()).
                 param("mode", "json").
         when().
@@ -233,7 +227,7 @@ public class WeatherTests {
 
     @Test
     public void checkBodyMessageWhenNameIncorrectByCityName(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("q", randomString()+","+countyCode).
                 param("mode", "json").
         when().
@@ -245,7 +239,7 @@ public class WeatherTests {
     }
     @Test
     public void checkBodyMessageWhenLatIncorrectByLatLon(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", randomString()).
                 param("lon", lon).
                 param("mode", "json").
@@ -258,7 +252,7 @@ public class WeatherTests {
     }
     @Test
     public void checkBodyMessageWhenZipIncorrectByZip(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("zip", randomString()+","+countyCode).
                 param("mode", "json").
         when().
@@ -277,7 +271,7 @@ public class WeatherTests {
     public void checkCityParamsInJsonResponse(){
         //Verify that response identical by all possibles request params
         for (RequestSpecification paramFromList: requestParams) {
-            given().log().all().
+            given().log().ifValidationFails().
                     spec(paramFromList).
                     param("mode", "json").
             when().
@@ -289,8 +283,6 @@ public class WeatherTests {
                     body("sys.country", equalTo(countyCode)).and().
                     body("coord.lat", equalTo(lat)).and().
                     body("coord.lon", equalTo(lon));
-
-            drawSeparator();
         }
     }
 
@@ -298,7 +290,7 @@ public class WeatherTests {
     public void checkCityNameInHtmlResponse(){
         //Verify that response identical by all possibles request params
         for (RequestSpecification paramFromList: requestParams) {
-            given().log().all().
+            given().log().ifValidationFails().
                     spec(paramFromList).
                     param("mode", "html").
             when().
@@ -306,14 +298,12 @@ public class WeatherTests {
             then().
                     log().ifValidationFails().
                     assertThat().body("html.body.div", hasItem(cityName));
-
-            drawSeparator();
         }
     }
 
     @Test
     public void checkCityParamsInJsonResponseByZip(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("zip", zipCode+","+countyCode).
                 param("mode", "json").
         when().
@@ -328,7 +318,7 @@ public class WeatherTests {
     @Test
     public void checkCityParamsInXmlResponse(){
         for (RequestSpecification paramFromList: requestParams) {
-            given().log().all().
+            given().log().ifValidationFails().
                     spec(paramFromList).
                     param("mode", "xml").
             when().
@@ -345,7 +335,7 @@ public class WeatherTests {
 
     @Test
     public void checkCityParamsInXmlResponseByZip(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("zip", zipCode+","+countyCode).
                 param("mode", "xml").
         when().
@@ -360,7 +350,7 @@ public class WeatherTests {
     @Test
     public void checkWeatherIsNotEmptyInJsonResponse(){
         for (RequestSpecification paramFromList: requestParams) {
-            given().log().all().
+            given().log().ifValidationFails().
                     spec(paramFromList).
                     param("mode", "json").
             when().
@@ -369,15 +359,13 @@ public class WeatherTests {
                     log().ifValidationFails().
                     assertThat().body("main.temp", not(empty())).and().
                     body("weather.description", not(empty()));
-
-            drawSeparator();
         }
     }
 
     @Test
     public void checkWeatherIsNotEmptyInXmlResponse(){
         for (RequestSpecification paramFromList: requestParams) {
-            given().log().all().
+            given().log().ifValidationFails().
                     spec(paramFromList).
                     param("mode", "xml").
             when().
@@ -386,8 +374,6 @@ public class WeatherTests {
                     log().ifValidationFails().
                     assertThat().body("current.temperature.@value ", not(empty())).and().
                     body("current.clouds.@value ", not(empty()));
-
-            drawSeparator();
         }
     }
 }

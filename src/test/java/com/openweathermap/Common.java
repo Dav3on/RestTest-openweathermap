@@ -57,8 +57,4 @@ public class Common {
     {
         return RandomStringUtils.randomAlphanumeric(20);
     }
-
-    public static void drawSeparator(){
-        System.out.println("_____________________________________________________");
-    }
 }

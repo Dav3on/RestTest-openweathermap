@@ -41,13 +41,11 @@ public class BBoxCityTests {
         lat = null;
         lon = null;
         bbox = null;
-
-        drawSeparator();
     }
 
     @Test
     public void status200WhenRectangleCorrect(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("bbox", bbox).
                 param("mode", "json").
         when().
@@ -59,7 +57,7 @@ public class BBoxCityTests {
 
     @Test
     public void checkResponseContentTypeIsJSON(){
-            given().log().all().
+            given().log().ifValidationFails().
                     param("bbox", bbox).
                     param("mode", "json").
             when().
@@ -72,7 +70,7 @@ public class BBoxCityTests {
     //Unfortunately it works fine just for Kiev.
     @Test
     public void checkCityInResponse(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("bbox", bbox).
                 param("mode", "json").
         when().
@@ -84,7 +82,7 @@ public class BBoxCityTests {
 
     @Test
     public void checkWeatherIsNotEmptyInJSON(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("bbox", bbox).
                 param("mode", "json").
         when().

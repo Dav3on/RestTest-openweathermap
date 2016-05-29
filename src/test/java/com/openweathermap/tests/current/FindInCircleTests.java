@@ -44,13 +44,11 @@ public class FindInCircleTests {
         lon = null;
         cityName = null;
         cnt = null;
-
-        drawSeparator();
     }
 
     @Test
     public void status200WhenLatLongCorrect(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -64,7 +62,7 @@ public class FindInCircleTests {
 
     @Test
     public void status400WhenCountIncorrect(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", 0).
@@ -82,7 +80,7 @@ public class FindInCircleTests {
     public void checkResponseContentTypes(){
         //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
-                given().log().all().
+                given().log().ifValidationFails().
                         param("lat", lat).
                         param("lon", lon).
                         param("cnt", cnt).
@@ -92,14 +90,12 @@ public class FindInCircleTests {
                 then().
                         log().ifValidationFails().
                         assertThat().contentType(entry.getValue());
-
-            drawSeparator();
         }
     }
 
     @Test
     public void checkBodyMessageWhenLonIncorrect(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", randomString()).
                 param("cnt", cnt).
@@ -114,7 +110,7 @@ public class FindInCircleTests {
 
     @Test
     public void countCitiesInResponseJSON(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -128,7 +124,7 @@ public class FindInCircleTests {
 
     @Test
     public void responseHasCityByCoordinatesJSON(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -143,7 +139,7 @@ public class FindInCircleTests {
 
     @Test
     public void countCitiesInResponseXML(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -159,7 +155,7 @@ public class FindInCircleTests {
     public void responseHasCityByCoordinatesXML(){
         cnt+=1; //to get range 2-12 (for getting Collection, not String)
 
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -173,7 +169,7 @@ public class FindInCircleTests {
 
     @Test
     public void checkWeatherIsNotEmptyInJSON(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -188,7 +184,7 @@ public class FindInCircleTests {
 
     @Test
     public void checkWeatherIsNotEmptyInXML(){
-        given().log().all().
+        given().log().ifValidationFails().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
