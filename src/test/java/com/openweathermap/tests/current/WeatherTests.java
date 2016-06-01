@@ -3,12 +3,12 @@ package com.openweathermap.tests.current;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.specification.RequestSpecification;
+import com.openweathermap.City;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
@@ -36,13 +36,13 @@ public class WeatherTests {
     @Before
     public void setUp()
     {
-        HashMap<String, Object> city = getRandomCity();
-        cityName = getCityNameFromMap(city);
-        countyCode = getCountryCodeFromMap(city);
-        cityId = getCityIdFromMap(city);
-        zipCode = getZipCodeFromMap(city);
-        lat = getLatFromMap(city, 2);
-        lon = getLonFromMap(city, 2);
+        City city = new City();
+        cityName = city.getCityName();
+        countyCode = city.getCountryCode();
+        cityId = city.getCityId();
+        zipCode = city.getZipCode();
+        lat = city.getLat(2);
+        lon = city.getLon(2);
 
         requestParams.add(new RequestSpecBuilder().addParam("id", cityId).setPort(DEFAULT_PORT).build());
         requestParams.add(new RequestSpecBuilder().addParam("q", cityName).setPort(DEFAULT_PORT).build());

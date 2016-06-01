@@ -1,18 +1,16 @@
 package com.openweathermap.tests.current;
 
 import com.jayway.restassured.http.ContentType;
+import com.openweathermap.City;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import static com.jayway.restassured.RestAssured.given;
 import static com.openweathermap.Common.*;
-import static com.openweathermap.Common.getLatFromMap;
-import static com.openweathermap.Common.getLonFromMap;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.empty;
@@ -31,10 +29,10 @@ public class FindInCircleTests {
     @Before
     public void setUp()
     {
-        HashMap<String, Object> city = getRandomCity();
-        lat = getLatFromMap(city, 2);
-        lon = getLonFromMap(city, 2);
-        cityName = getCityNameFromMap(city);
+        City city = new City();
+        lat = city.getLat(2);
+        lon = city.getLon(2);
+        cityName = city.getCityName();
         cnt = new Random().nextInt(10)+1; // for range 1-11
     }
 

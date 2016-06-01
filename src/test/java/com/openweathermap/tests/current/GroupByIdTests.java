@@ -1,6 +1,7 @@
 package com.openweathermap.tests.current;
 
 import com.jayway.restassured.http.ContentType;
+import com.openweathermap.City;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +9,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static com.jayway.restassured.RestAssured.given;
-import static com.openweathermap.Cities.CITIES;
+import static com.openweathermap.City.CITIES;
 import static com.openweathermap.Common.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
@@ -18,7 +19,7 @@ import static org.hamcrest.Matchers.empty;
 public class GroupByIdTests {
     public final String endpointURL = BASE_API_URL+"/group?appid="+API_KEY+"&";
 
-    private ArrayList<HashMap> arr = new ArrayList<HashMap>();
+    private ArrayList<City> arr = new ArrayList<City>();
     private ArrayList<Integer>  cityIds = new ArrayList<Integer>();
     private String cityIdsForRequest = "";
 
@@ -29,12 +30,12 @@ public class GroupByIdTests {
         Integer maxsize = new Random().nextInt(CITIES.size())+1;
 
         for (int i=0; i<maxsize; i++){
-            arr.add(getRandomCity());   //add random cities to List.
+            arr.add(new City());   //add random cities to List.
         }
 
-        for (HashMap map: arr){
-            cityIds.add((Integer) map.get("id")); //Create List of IDs for expectation
-            cityIdsForRequest += map.get("id").toString()+","; //Create String of IDs for request param
+        for (City city: arr){
+            cityIds.add(city.getCityId()); //Create List of IDs for expectation
+            cityIdsForRequest += city.getCityId().toString()+","; //Create String of IDs for request param
         }
         cityIdsForRequest = cityIdsForRequest.substring(0, cityIdsForRequest.length()-1);
     }

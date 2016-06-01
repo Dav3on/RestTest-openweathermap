@@ -3,18 +3,16 @@ package com.openweathermap.tests.forecast5;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.specification.RequestSpecification;
+import com.openweathermap.City;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
 import static com.openweathermap.Common.*;
-import static com.openweathermap.Common.getCityIdFromMap;
-import static com.openweathermap.Common.getCountryCodeFromMap;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.empty;
@@ -29,7 +27,7 @@ public class ForecastTests {
 
     private ArrayList<RequestSpecification> requestParams = new ArrayList<RequestSpecification>();
 
-    private HashMap<String, Object> city;
+    private City city;
     private String cityName;
     private String countyCode;
     private Integer cityId;
@@ -40,13 +38,12 @@ public class ForecastTests {
     @Before
     public void setUp()
     {
-
-        city = getRandomCity();
-        cityName = getCityNameFromMap(city);
-        countyCode = getCountryCodeFromMap(city);
-        cityId = getCityIdFromMap(city);
-        lat = getLatFromMap(city, 5);
-        lon = getLonFromMap(city, 5);
+        city = new City();
+        cityName = city.getCityName();
+        countyCode = city.getCountryCode();
+        cityId = city.getCityId();
+        lat = city.getLat(5);
+        lon = city.getLon(5);
 
         requestParams.add(new RequestSpecBuilder().addParam("id", cityId).setPort(DEFAULT_PORT).build());
         requestParams.add(new RequestSpecBuilder().addParam("q", cityName).setPort(DEFAULT_PORT).build());
@@ -250,8 +247,8 @@ public class ForecastTests {
 
     @Test
     public void checkCityParamsInResponseXML(){
-        Double RawLat = (Double) city.get("lat");       //I need to get raw double values for this test
-        Double RawLon = (Double) city.get("lon");
+        Double RawLat = city.getRawLat();      //I need to get raw double values for this test
+        Double RawLon = city.getRawLon();
 
         //Verify that response identical by all possibles request params
         for (RequestSpecification paramFromList: requestParams) {

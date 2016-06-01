@@ -1,16 +1,13 @@
 package com.openweathermap.tests.current;
 
 import com.jayway.restassured.http.ContentType;
+import com.openweathermap.City;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-
 import static com.jayway.restassured.RestAssured.given;
 import static com.openweathermap.Common.*;
-import static com.openweathermap.Common.getLatFromMap;
-import static com.openweathermap.Common.getLonFromMap;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
@@ -28,10 +25,10 @@ public class BBoxCityTests {
     @Before
     public void setUp()
     {
-        HashMap<String, Object> city = getRandomCity();
-        cityName = getCityNameFromMap(city);
-        lat = getLatFromMap(city, 2);
-        lon = getLonFromMap(city, 2);
+        City city = new City();
+        cityName = city.getCityName();
+        lat = city.getLat(2);
+        lon = city.getLon(2);
         bbox = (lon-0.5f)+","+(lat-0.5f)+","+(lon+0.5f)+","+(lat+0.5f); //bounding box that include current city
     }
 
