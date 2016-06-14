@@ -41,7 +41,7 @@ public class ForecastTests {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
-    //You move to @BeforeClass if needed.
+    //You can move to @BeforeClass if needed.
     @Before
     public void setUp()
     {
