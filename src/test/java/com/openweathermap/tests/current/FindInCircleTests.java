@@ -1,9 +1,11 @@
 package com.openweathermap.tests.current;
 
+import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.openweathermap.City;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Map;
@@ -25,7 +27,12 @@ public class FindInCircleTests {
     private String cityName;
     private Integer cnt;
 
-    //You can change to @BeforeClass if needed.
+    @BeforeClass
+    public static void setUpBeforeClass(){
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+    }
+
+    //You move to @BeforeClass if needed.
     @Before
     public void setUp()
     {
@@ -46,7 +53,7 @@ public class FindInCircleTests {
 
     @Test
     public void status200WhenLatLongCorrect(){
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -54,13 +61,12 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().statusCode(200);
     }
 
     @Test
     public void status400WhenCountIncorrect(){
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", 0).
@@ -68,7 +74,6 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().statusCode(400);
     }
 
@@ -78,7 +83,7 @@ public class FindInCircleTests {
     public void checkResponseContentTypes(){
         //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
-                given().log().ifValidationFails().
+                given().
                         param("lat", lat).
                         param("lon", lon).
                         param("cnt", cnt).
@@ -86,14 +91,13 @@ public class FindInCircleTests {
                 when().
                         get(endpointURL).
                 then().
-                        log().ifValidationFails().
                         assertThat().contentType(entry.getValue());
         }
     }
 
     @Test
     public void checkBodyMessageWhenLonIncorrect(){
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", randomString()).
                 param("cnt", cnt).
@@ -101,14 +105,13 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("cod", equalTo("404")).and().
                 body("message", equalTo("Error: Not found city"));
     }
 
     @Test
     public void countCitiesInResponseJSON(){
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -116,13 +119,12 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("list.name.size()",equalTo(cnt));
     }
 
     @Test
     public void responseHasCityByCoordinatesJSON(){
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -130,14 +132,13 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("list.name", hasItem(cityName));
     }
 
 
     @Test
     public void countCitiesInResponseXML(){
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -145,7 +146,6 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("cities.list.item.city.@name.size()",equalTo(cnt));
     }
 
@@ -153,7 +153,7 @@ public class FindInCircleTests {
     public void responseHasCityByCoordinatesXML(){
         cnt+=1; //to get range 2-12 (for getting Collection, not String)
 
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -161,13 +161,12 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("cities.list.item.city.@name", hasItem(cityName));
     }
 
     @Test
     public void checkWeatherIsNotEmptyInJSON(){
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -175,14 +174,13 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("list.main.temp", not(empty())).and().
                 body("list.weather.description", not(empty()));
     }
 
     @Test
     public void checkWeatherIsNotEmptyInXML(){
-        given().log().ifValidationFails().
+        given().
                 param("lat", lat).
                 param("lon", lon).
                 param("cnt", cnt).
@@ -190,7 +188,6 @@ public class FindInCircleTests {
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("cities.list.item.temperature.@value", not(empty())).and().
                 body("cities.list.item.clouds.@value", not(empty()));
     }

@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c29afea-730e-43cf-85af-bb9d9361c785" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/openweathermap/Cities.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/openweathermap/Common.java" afterPath="$PROJECT_DIR$/src/test/java/com/openweathermap/Common.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/TestSuite.java" afterPath="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/TestSuite.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/BBoxCityTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/BBoxCityTests.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/FindInCircleTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/FindInCircleTests.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/GroupByIdTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/GroupByIdTests.java" />
@@ -34,8 +33,8 @@
       <file leaf-file-name="TestSuite.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/TestSuite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            <state relative-caret-position="80">
+              <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -81,13 +80,15 @@
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/forecast5/Forecast5Tests.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/ByCityId.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/ByZipCode.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/Common.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/Settings.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/GlobalSettings.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/TestSuite.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/BBoxCityTests.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/FindInCircleTests.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/GroupByIdTests.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/WeatherTests.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/tests/forecast5/ForecastTests.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/openweathermap/Common.java" />
       </list>
     </option>
   </component>
@@ -165,6 +166,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -325,7 +327,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -333,19 +334,24 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.openweathermap" />
+    </key>
+  </component>
   <component name="RunManager" selected="JUnit.TestSuite">
-    <configuration default="false" name="TestSuite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="FindInCircleTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.openweathermap.tests.*" />
+          <option name="PATTERN" value="com.openweathermap.tests.current.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="openweathermap" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.openweathermap.tests" />
-      <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.TestSuite" />
+      <option name="PACKAGE_NAME" value="com.openweathermap.tests.current" />
+      <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.current.FindInCircleTests" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -360,7 +366,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="WeatherTests.checkCityParamsInXmlResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="GroupByIdTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.openweathermap.tests.current.*" />
@@ -371,9 +377,9 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.openweathermap.tests.current" />
-      <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.current.WeatherTests" />
-      <option name="METHOD_NAME" value="checkCityParamsInXmlResponse" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.current.GroupByIdTests" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -386,7 +392,33 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="ForecastTests.checkBodyMessageWhenUnauthorized" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="WeatherTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.openweathermap.tests.current.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="openweathermap" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.openweathermap.tests.current" />
+      <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.current.WeatherTests" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="ForecastTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.openweathermap.tests.forecast5.*" />
@@ -398,8 +430,8 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.openweathermap.tests.forecast5" />
       <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.forecast5.ForecastTests" />
-      <option name="METHOD_NAME" value="checkBodyMessageWhenUnauthorized" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -412,7 +444,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="BBoxCityTests.checkWeatherIsNotEmptyInJSON" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="TestSuite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.openweathermap.tests.*" />
@@ -422,36 +454,10 @@
       <module name="openweathermap" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.openweathermap.tests.current" />
-      <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.current.BBoxCityTests" />
-      <option name="METHOD_NAME" value="checkWeatherIsNotEmptyInJSON" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="WeatherTests.checkCityParamsInJsonResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.openweathermap.tests.current.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="openweathermap" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.openweathermap.tests.current" />
-      <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.current.WeatherTests" />
-      <option name="METHOD_NAME" value="checkCityParamsInJsonResponse" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.openweathermap.tests" />
+      <option name="MAIN_CLASS_NAME" value="com.openweathermap.tests.TestSuite" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -699,19 +705,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.TestSuite" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.WeatherTests.checkCityParamsInXmlResponse" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.ForecastTests.checkBodyMessageWhenUnauthorized" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.BBoxCityTests.checkWeatherIsNotEmptyInJSON" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.WeatherTests.checkCityParamsInJsonResponse" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.FindInCircleTests" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.GroupByIdTests" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.WeatherTests" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.ForecastTests" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.TestSuite" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="JUnit.TestSuite" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.WeatherTests.checkCityParamsInJsonResponse" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.BBoxCityTests.checkWeatherIsNotEmptyInJSON" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.ForecastTests.checkBodyMessageWhenUnauthorized" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.WeatherTests.checkCityParamsInXmlResponse" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.ForecastTests" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.WeatherTests" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.GroupByIdTests" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.FindInCircleTests" />
       </list>
     </recent_temporary>
   </component>
@@ -732,29 +738,29 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BBoxCityTests_checkWeatherIsNotEmptyInJSON - 2016.05.29 at 14h 46m 32s.xml">
-      <configuration name="BBoxCityTests.checkWeatherIsNotEmptyInJSON" configurationId="JUnit" />
+    <history-entry file="BBoxCityTests - 2016.06.14 at 12h 50m 57s.xml">
+      <configuration name="BBoxCityTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BBoxCityTests_checkWeatherIsNotEmptyInJSON - 2016.05.29 at 14h 47m 14s.xml">
-      <configuration name="BBoxCityTests.checkWeatherIsNotEmptyInJSON" configurationId="JUnit" />
+    <history-entry file="FindInCircleTests - 2016.06.14 at 12h 55m 29s.xml">
+      <configuration name="FindInCircleTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BBoxCityTests_checkWeatherIsNotEmptyInJSON - 2016.05.29 at 14h 47m 33s.xml">
-      <configuration name="BBoxCityTests.checkWeatherIsNotEmptyInJSON" configurationId="JUnit" />
+    <history-entry file="ForecastTests - 2016.06.14 at 13h 01m 42s.xml">
+      <configuration name="ForecastTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestSuite - 2016.05.29 at 14h 43m 54s.xml">
-      <configuration name="TestSuite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestSuite - 2016.05.29 at 14h 48m 31s.xml">
-      <configuration name="TestSuite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestSuite - 2016.05.29 at 14h 52m 10s.xml">
-      <configuration name="TestSuite" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TestSuite - 2016.05.29 at 14h 55m 19s.xml">
-      <configuration name="TestSuite" configurationId="JUnit" />
+    <history-entry file="GroupByIdTests - 2016.06.14 at 12h 56m 36s.xml">
+      <configuration name="GroupByIdTests" configurationId="JUnit" />
     </history-entry>
     <history-entry file="TestSuite - 2016.06.01 at 17h 08m 34s.xml">
       <configuration name="TestSuite" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestSuite - 2016.06.14 at 12h 50m 24s.xml">
+      <configuration name="TestSuite" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestSuite - 2016.06.14 at 13h 02m 32s.xml">
+      <configuration name="TestSuite" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WeatherTests - 2016.06.14 at 12h 59m 10s.xml">
+      <configuration name="WeatherTests" configurationId="JUnit" />
     </history-entry>
     <history-entry file="WeatherTests_checkCityParamsInJsonResponse - 2016.05.29 at 14h 50m 54s.xml">
       <configuration name="WeatherTests.checkCityParamsInJsonResponse" configurationId="JUnit" />
@@ -773,7 +779,6 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32521087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -789,6 +794,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -820,7 +826,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/ByCityId.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/Cities.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/Common.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -915,13 +920,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jayway/restassured/rest-assured/2.9.0/rest-assured-2.9.0.jar!/com/jayway/restassured/RestAssured.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="186" column="46" selection-start-line="186" selection-start-column="46" selection-end-line="186" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/jayway/restassured/rest-assured/2.9.0/rest-assured-2.9.0.jar!/com/jayway/restassured/internal/ResponseSpecificationImpl.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -982,79 +980,75 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/ByGeographicCoordinates.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/ByCityName.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/ByZipCode.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/Cities.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/Cities.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/Common.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="380">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/GlobalSettings.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jayway/restassured/rest-assured/2.9.0/rest-assured-2.9.0.jar!/com/jayway/restassured/RestAssured.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="501" column="73" selection-start-line="501" selection-start-column="23" selection-end-line="501" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/City.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="761">
-          <caret line="78" column="18" selection-start-line="78" selection-start-column="18" selection-end-line="78" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="80">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/WeatherTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/forecast5/ForecastTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/Common.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="9" selection-end-column="25" />
-          <folding>
-            <element signature="e#837#838#0" expanded="true" />
-            <element signature="e#900#901#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/BBoxCityTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/FindInCircleTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="31" />
+        <state relative-caret-position="420">
+          <caret line="42" column="11" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/GroupByIdTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+        <state relative-caret-position="1880">
+          <caret line="111" column="15" selection-start-line="111" selection-start-column="15" selection-end-line="111" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/FindInCircleTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="38" column="31" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/forecast5/ForecastTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2520">
+          <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/current/BBoxCityTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1560">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
           <folding>
-            <element signature="e#704#710#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/openweathermap/tests/TestSuite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        <state relative-caret-position="80">
+          <caret line="4" column="39" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
           <folding />
         </state>
       </provider>

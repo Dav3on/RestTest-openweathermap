@@ -1,9 +1,11 @@
 package com.openweathermap.tests.current;
 
+import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.openweathermap.City;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.*;
@@ -23,6 +25,11 @@ public class GroupByIdTests {
     private ArrayList<Integer>  cityIds = new ArrayList<Integer>();
     private String cityIdsForRequest = "";
 
+
+    @BeforeClass
+    public static void setUpBeforeClass(){
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+    }
 
     @Before
     public void setUp()
@@ -49,12 +56,11 @@ public class GroupByIdTests {
 
     @Test
     public void status200WhenCityIdsCorrect(){
-        given().log().ifValidationFails().
+        given().
                 param("id", cityIdsForRequest).
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().statusCode(200);
     }
 
@@ -64,50 +70,46 @@ public class GroupByIdTests {
     public void checkResponseContentTypes(){
         //Verify all possible content types even with default (watch CONTENT_TYPES)
         for (Map.Entry<String, ContentType> entry: CONTENT_TYPES.entrySet()){
-            given().log().ifValidationFails().
+            given().
                     param("id", cityIdsForRequest).
                     param("mode", entry.getKey()).
             when().
                     get(endpointURL).
             then().
-                    log().ifValidationFails().
                     assertThat().contentType(entry.getValue());
         }
     }
 
     @Test
     public void checkCityIdsPresentJSON(){
-        given().log().ifValidationFails().
+        given().
                 param("id", cityIdsForRequest).
                 param("mode", "json").
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("list.id", equalTo(cityIds));
     }
 
     @Test
     public void countWeatherInResponseJSON(){
-        given().log().ifValidationFails().
+        given().
                 param("id", cityIdsForRequest).
                 param("mode", "json").
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("list.weather.size()", equalTo(cityIds.size()));
     }
 
     @Test
     public void checkWeatherIsNotEmptyJSON(){
-        given().log().ifValidationFails().
+        given().
                 param("id", cityIdsForRequest).
                 param("mode", "json").
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("list.weather.main[0]", not(empty()));
     }
 }

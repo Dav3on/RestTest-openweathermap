@@ -1,9 +1,11 @@
 package com.openweathermap.tests.current;
 
+import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.openweathermap.City;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static com.jayway.restassured.RestAssured.given;
@@ -21,7 +23,12 @@ public class BBoxCityTests {
     private Float lon;
     private String bbox;
 
-    //You can change to @BeforeClass if needed.
+    @BeforeClass
+    public static void setUpBeforeClass(){
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+    }
+
+    //You move to @BeforeClass if needed.
     @Before
     public void setUp()
     {
@@ -42,51 +49,47 @@ public class BBoxCityTests {
 
     @Test
     public void status200WhenRectangleCorrect(){
-        given().log().ifValidationFails().
+        given().
                 param("bbox", bbox).
                 param("mode", "json").
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().statusCode(200);
     }
 
     @Test
     public void checkResponseContentTypeIsJSON(){
-            given().log().ifValidationFails().
+            given().
                     param("bbox", bbox).
                     param("mode", "json").
             when().
                     get(endpointURL).
             then().
-                    log().ifValidationFails().
                     assertThat().contentType(ContentType.JSON);
     }
 
     //Unfortunately it works fine only for Kiev.
     @Test
     public void checkCityInResponse(){
-        given().log().ifValidationFails().
+        given().
                 param("bbox", bbox).
                 param("mode", "json").
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("list.name", hasItem(cityName));
     }
 
     //Unfortunately it works fine only for Kiev.
     @Test
     public void checkWeatherIsNotEmptyInJSON(){
-        given().log().ifValidationFails().
+        given().
                 param("bbox", bbox).
                 param("mode", "json").
         when().
                 get(endpointURL).
         then().
-                log().ifValidationFails().
                 assertThat().body("list.main.temp", not(empty())).and().
                 body("list.weather.description", not(empty()));
     }
